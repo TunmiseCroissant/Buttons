@@ -1,7 +1,9 @@
 let today = new Date()
 let year = today.getFullYear()
-let Buttons = []
 let totalDays = 0;
+
+
+const Buttons = JSON.parse(localStorage.getItem("Buttons")) || [];
 
 class Button {
     constructor(date, words="", photos=[]) {
@@ -32,3 +34,20 @@ const setJars = () => {
 
 setButtons()
 setJars()
+
+
+while (true) {
+    const day = prompt('What day would you like to add words to? (format: month/day/year // 1/1/2026): ');
+
+    const button = Buttons.find(obj => obj.date === day);
+
+    if (button) {
+        const text = prompt("What would you like to add? ")
+        button.words += text
+        console.log(button)
+        localStorage.setItem("Buttons", JSON.stringify(Buttons))
+        break
+    } else {
+        console.log("Invalid day. please enter in correct format.")
+    }
+};
